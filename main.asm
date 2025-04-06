@@ -23,7 +23,15 @@
 
 %define THREAD_COUNT 10 ; Number of worker threads
 
-;Following amd64 syscall standards for internal function calls: rdi rsi rdx r10 r8 r9
+%ifidn __OUTPUT_FORMAT__,elf
+section .note.GNU-stack noalloc noexec nowrite progbits
+%endif
+%ifidn __OUTPUT_FORMAT__,elf32
+section .note.GNU-stack noalloc noexec nowrite progbits
+%endif
+%ifidn __OUTPUT_FORMAT__,elf64
+section .note.GNU-stack noalloc noexec nowrite progbits
+%endif
 
 section .data
     %include "data.asm"
